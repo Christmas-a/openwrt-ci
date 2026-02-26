@@ -106,6 +106,12 @@ jobs:
         cd $OPENWRT_PATH
         $GITHUB_WORKSPACE/$DIY_SCRIPT
 
+    - name: Fix mbedtls compile flags
+      run: |
+          cd $OPENWRT_PATH
+          # 在 mbedtls Makefile 的 CMAKE_OPTIONS 后面添加 TARGET_CFLAGS += -fno-inline
+            sed -i '/CMAKE_OPTIONS/a \\tTARGET_CFLAGS += -fno-inline' package/libs/mbedtls/Makefile
+
     - name: Download DL Package(下载DL软件包)
       run: |
         cd $OPENWRT_PATH
