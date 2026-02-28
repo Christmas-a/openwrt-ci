@@ -108,9 +108,8 @@ jobs:
 
     - name: Fix mbedtls compile flags
       run: |
-          cd $OPENWRT_PATH
-          # 在 mbedtls Makefile 的 CMAKE_OPTIONS 后面添加 TARGET_CFLAGS += -fno-inline
-            sed -i '/CMAKE_OPTIONS/a \\tTARGET_CFLAGS += -fno-inline' package/libs/mbedtls/Makefile
+        cd $OPENWRT_PATH
+        sed -i '/CMAKE_OPTIONS/ s/$/ -DCMAKE_C_FLAGS="-fno-inline"/' package/libs/mbedtls/Makefile
 
     - name: Download DL Package(下载DL软件包)
       run: |
